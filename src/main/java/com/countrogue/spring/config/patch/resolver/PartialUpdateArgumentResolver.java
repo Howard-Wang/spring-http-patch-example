@@ -67,6 +67,7 @@ public class PartialUpdateArgumentResolver implements HandlerMethodArgumentResol
         Object id = idClass.cast(idStr);
         Method method = ReflectionUtils.findMethod(serviceClass, "find", idClass);
 
+        // 找到对应 service 中的 find 方法，通过 id 找到对应的对象
         Object obj = ReflectionUtils.invokeMethod(method, service, id);
         obj = readJavaType(obj, req);
         return obj;
@@ -85,6 +86,7 @@ public class PartialUpdateArgumentResolver implements HandlerMethodArgumentResol
 
     private Object readJavaType(Object object, HttpInputMessage inputMessage) {
         try {
+            // 通过上传的 json 产生一个新的对象
             return this.objectMapper.readerForUpdating(object).readValue(inputMessage.getBody());
         }
         catch (IOException ex) {
