@@ -41,9 +41,9 @@ public class AssetController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
-    @Patch(service = AssetService.class, id = String.class)
+    @Patch(service = AssetService.class, id = String.class)  // 声明用哪个 service 来处理
     public Asset patch(@PathVariable String id,
-                       @PatchRequestBody Asset asset) {
+                       @PatchRequestBody Asset asset) { // @PatchRequestBody 这个主要是用来做个标记，表示这个参数要做自定义处理
 
         asset.setId(id);
         return assetService.save(asset);
